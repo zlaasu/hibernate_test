@@ -32,21 +32,24 @@ public class BookController {
     @GetMapping("/add")
     @ResponseBody
     public String add() {
-        Book book = new Book();
         Publisher publisher = new Publisher();
-        Author author = new Author();
-        List<Author> authors = new ArrayList<>();
+        publisher.setName("pub 1");
+        publisherService.save(publisher);
 
+        Author author = new Author();
         author.setFirstName("Bruce");
         author.setLastName("Eckerl");
+
+        List<Author> authors = new ArrayList<>();
         authors.add(author);
         authors.forEach(a -> authorService.save(a));
 
-        publisher.setName("pub 1");
+
+        Book book = new Book();
         book.setTitle("Thinking in Java");
         book.setPublisher(publisher);
+        book.setAuthors(authors);
 
-        publisherService.save(publisher);
         bookService.save(book);
 
         return "Book added, id = " + book.getId();
