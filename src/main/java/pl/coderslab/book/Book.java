@@ -2,9 +2,11 @@ package pl.coderslab.book;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.author.Author;
 import pl.coderslab.publisher.Publisher;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,8 +20,6 @@ public class Book {
 
     private String title;
 
-    private String author;
-
     private int rating;
 
     private String description;
@@ -27,4 +27,7 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
+
+    @ManyToMany(mappedBy = "books")
+    private List<Author> authors;
 }

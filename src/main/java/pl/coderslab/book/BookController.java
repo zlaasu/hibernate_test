@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.coderslab.author.Author;
 
 @Controller
 @RequestMapping("/book")
@@ -22,8 +23,8 @@ public class BookController {
     @ResponseBody
     public String add() {
         Book book = new Book();
+        Author author = new Author();
         book.setTitle("Thinking in Java");
-        book.setAuthor("Bruce Eckel");
 
         bookService.save(book);
 

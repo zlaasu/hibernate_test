@@ -2,8 +2,10 @@ package pl.coderslab.author;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.book.Book;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,12 +21,9 @@ public class Author {
 
     private String lastName;
 
-    @Override
-    public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
+    @ManyToMany
+    @JoinTable(name = "authors_books",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> books;
 }
