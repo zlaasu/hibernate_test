@@ -7,25 +7,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.author.Author;
+import pl.coderslab.author.AuthorService;
+import pl.coderslab.publisher.Publisher;
+import pl.coderslab.publisher.PublisherService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/book")
 public class BookController {
 
     private final BookService bookService;
+    private final PublisherService publisherService;
+    private final AuthorService authorService;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, PublisherService publisherService, AuthorService authorService) {
         this.bookService = bookService;
+        this.publisherService = publisherService;
+        this.authorService = authorService;
     }
 
     @GetMapping("/add")
     @ResponseBody
     public String add() {
         Book book = new Book();
+        Publisher publisher = new Publisher();
         Author author = new Author();
-        book.setTitle("Thinking in Java");
+        List<Author> authors = new ArrayList<>();
 
+        author.setFirstName("Bruce");
+        author.setLastName("Eckerl");
+        authors.add(author);
+        authors.forEach(a -> authorService.save(a));
+
+        publisher.setName("pub 1");
+        book.setTitle("Thinking in Java");
+        book.setPublisher(publisher);
+
+        publisherService.save(publisher);
         bookService.save(book);
 
         return "Book added, id = " + book.getId();
