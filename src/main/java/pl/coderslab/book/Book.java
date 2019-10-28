@@ -24,4 +24,16 @@ public class Book {
     private String publisher;
 
     private String description;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", rating=" + rating +
+                ", publisher='" + publisher + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
