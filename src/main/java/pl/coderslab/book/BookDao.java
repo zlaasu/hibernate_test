@@ -9,9 +9,24 @@ import javax.persistence.PersistenceContext;
 public class BookDao {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
-    public void saveBook(Book book) {
+    public void save(Book book) {
         entityManager.persist(book);
+    }
+
+    public void update(Book book) {
+        entityManager.merge(book);
+    }
+
+    public Book findOne(Long id) {
+        return entityManager.find(Book.class, id);
+    }
+
+    public void delete(Long id) {
+        Book book = findOne(id);
+        if (book != null) {
+            entityManager.remove(book);
+        }
     }
 }
