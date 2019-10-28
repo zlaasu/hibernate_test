@@ -26,9 +26,6 @@ public class AuthorService {
     }
 
     public void delete(Long id) {
-        Author author = findOne(id);
-        if (author != null) {
-            authorDao.delete(id);
-        }
+        authorDao.delete(id);
     }
 }
