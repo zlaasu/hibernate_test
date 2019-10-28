@@ -2,6 +2,7 @@ package pl.coderslab.book;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.publisher.Publisher;
 
 import javax.persistence.*;
 
@@ -21,19 +22,9 @@ public class Book {
 
     private int rating;
 
-    private String publisher;
-
     private String description;
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", rating=" + rating +
-                ", publisher='" + publisher + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
 }
