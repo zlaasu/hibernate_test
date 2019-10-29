@@ -11,7 +11,9 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Are do you whand to delete book <b>${book.title}?</b></h1>
+
+<p>Are do you whand to delete book <b>${book.title}?</b></p>
+
 
 <a href="/book/list">NIE!!!!</a>
 
