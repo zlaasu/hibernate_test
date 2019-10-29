@@ -3,7 +3,9 @@ package pl.coderslab.author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.book.Book;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +32,13 @@ public class AuthorService {
     }
 
     public void delete(Long id) {
+        Author author = authorDao.findOne(id);
+        List<Book> books = new ArrayList<>();
+
+        author.setBooks(books);
+        authorDao.update(author);
+
+//        authorDao.deleteAuthorRelations(id);
         authorDao.delete(id);
     }
 
