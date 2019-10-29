@@ -2,6 +2,7 @@ package pl.coderslab.person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -16,20 +17,14 @@ public class PersonController {
     }
 
     @GetMapping("/add")
-    public String add() {
+    public String add(Model model) {
+        model.addAttribute("person", new Person());
         return "person/add";
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public String add(@RequestParam String login,
-                      @RequestParam String password,
-                      @RequestParam String email) {
-        Person person = new Person();
-        person.setLogin(login);
-        person.setEmail(email);
-        person.setPassword(password);
-
+    public String add(@ModelAttribute Person person) {
         personService.save(person);
 
         return "Person added, ID = " + person.getId();

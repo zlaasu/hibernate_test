@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: zlasu
@@ -14,25 +15,25 @@
 
 <h1>Add person</h1>
 
-<form method="POST">
+<form:form method="POST" modelAttribute="person">
     <label>
         Login:
-        <input type="text" name="login"/>
+        <form:input path="login"/>
     </label>
     <br/><br/>
     <label>
         Password:
-        <input type="password" name="password"/>
+        <form:password path="password"/>
     </label>
     <br/><br/>
     <label>
         Email:
-        <input type="email" name="email"/>
+        <form:input path="email"/>
     </label>
     <br/><br/>
 
     <input type="submit" value="Save"/>
-</form>
+</form:form>
 
 </body>
 </html>
