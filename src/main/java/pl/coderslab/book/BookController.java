@@ -2,16 +2,12 @@ package pl.coderslab.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import pl.coderslab.author.Author;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.author.AuthorService;
 import pl.coderslab.publisher.Publisher;
 import pl.coderslab.publisher.PublisherService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,31 +26,19 @@ public class BookController {
     }
 
     @GetMapping("/add")
-    @ResponseBody
-    public String add() {
-        Publisher publisher = new Publisher();
-        publisher.setName("pub 1");
-        publisherService.save(publisher);
+    public String add(Model model) {
+        model.addAttribute("book", new Book());
 
-        Author author = new Author();
-        author.setFirstName("Bruce");
-        author.setLastName("Eckerl");
-
-        List<Author> authors = new ArrayList<>();
-        authors.add(author);
-        authors.forEach(a -> authorService.save(a));
-
-
-        Book book = new Book();
-        book.setTitle("Thinking in Java");
-        book.setPublisher(publisher);
-        book.setAuthors(authors);
-
-        bookService.save(book);
-
-        return "Book added, id = " + book.getId();
+        return "book/add";
     }
 
+    @PostMapping("/add")
+    @ResponseBody
+    public String add(@ModelAttribute Book book) {
+        bookService.save(book);
+
+        return "Book addes, id = " + book.getId();
+    }
 
     @GetMapping("/update/{id}")
     @ResponseBody
@@ -86,5 +70,10 @@ public class BookController {
         }
 
         return "Book not found";
+    }
+
+    @ModelAttribute(name = "publishers")
+    public List<Publisher> getPublishers() {
+        return publisherService.findAll();
     }
 }

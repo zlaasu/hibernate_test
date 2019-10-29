@@ -54,7 +54,7 @@
 
     <label>
         Hobbies:
-        <form:select path="hobbies" items="${hobbies}"/>
+        <form:checkboxes path="hobbies" items="${hobbies}"/>
     </label><br/><br/>
 
     <input type="submit" value="Save"/>
