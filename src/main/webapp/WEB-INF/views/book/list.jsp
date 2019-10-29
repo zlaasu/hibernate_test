@@ -20,6 +20,8 @@
     <p><b>Id: </b>${book.id}</p>
 
     <p><b>Title: </b>${book.title}</p>
+    <p><b>Rating: </b>${book.rating}</p>
+    <p><b>Publisher: </b>${book.publisher.name}</p>
 
     <p><b>Description</b></p>
     <p>${book.description}</p>
