@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import pl.coderslab.book.BookAuthorConverter;
+import pl.coderslab.author.AuthorConverter;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -47,8 +47,8 @@ public class AppConfig implements WebMvcConfigurer {
         registry.addConverter(getBookAuthorConverter());
     }
     @Bean
-    public BookAuthorConverter getBookAuthorConverter() {
-        return new BookAuthorConverter();
+    public AuthorConverter getBookAuthorConverter() {
+        return new AuthorConverter();
     }
 
 }
