@@ -1,5 +1,6 @@
 package pl.coderslab.book;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,11 @@ public class BookService {
     }
 
     public Book findOne(Long id) {
-        return bookDao.findOne(id);
+        Book book = bookDao.findOne(id);
+
+        Hibernate.initialize(book.getAuthors());
+
+        return book;
     }
 
     public void delete(Long id) {
@@ -34,6 +39,10 @@ public class BookService {
     }
 
     public List<Book> findAll() {
-        return bookDao.findAll();
+        List<Book> books =  bookDao.findAll();
+
+        books.forEach(s -> Hibernate.initialize(s.getAuthors()));
+
+        return books;
     }
 }

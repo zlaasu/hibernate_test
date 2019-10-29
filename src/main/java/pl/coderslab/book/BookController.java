@@ -1,9 +1,11 @@
 package pl.coderslab.book;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.author.Author;
 import pl.coderslab.author.AuthorService;
 import pl.coderslab.publisher.Publisher;
 import pl.coderslab.publisher.PublisherService;
@@ -55,7 +57,9 @@ public class BookController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        model.addAttribute("books", bookService.findAll());
+        List<Book> books = bookService.findAll();
+
+        model.addAttribute("books", books);
 
         return "book/list";
     }
@@ -77,6 +81,11 @@ public class BookController {
     @ModelAttribute(name = "publishers")
     public List<Publisher> getPublishers() {
         return publisherService.findAll();
+    }
+
+    @ModelAttribute(name = "authors")
+    public List<Author> getAuthors() {
+        return authorService.findAll();
     }
 }
 

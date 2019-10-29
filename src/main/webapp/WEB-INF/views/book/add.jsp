@@ -43,9 +43,15 @@
     <br/><br/>
 
     <label>
-        Publishers:
-        <form:select itemLabel="name" itemValue="id"
-                     path="publisher.id" items="${publishers}"/>
+    Publishers:
+    <form:select itemLabel="name" itemValue="id"
+                 path="publisher.id" items="${publishers}"/>
+    </label><br/><br/>
+
+    <label>
+        Authors:
+        <form:select itemLabel="firstName" itemValue="id"
+                     path="authors" items="${authors}"/>
     </label><br/><br/>
 
     <input type="submit" value="Save"/>
