@@ -32,11 +32,25 @@ public class BookController {
         return "book/add";
     }
 
+    @GetMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable Long id) {
+        model.addAttribute("book", bookService.findOne(id));
+
+        return "book/add";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@ModelAttribute Book book, @PathVariable Long id) {
+        bookService.update(book);
+
+        return "redirect:/book/list";
+    }
+
     @PostMapping("/add")
     public String add(@ModelAttribute Book book) {
         bookService.save(book);
 
-        return "redirect:/book/list";
+        return "redirect:list";
     }
 
     @GetMapping("/list")
@@ -46,36 +60,18 @@ public class BookController {
         return "book/list";
     }
 
-    @GetMapping("/update/{id}")
-    @ResponseBody
-    public String update(@PathVariable Long id) {
-        Book book = bookService.findOne(id);
-
-        book.setTitle("Thinking in Javaaaaaa!!!");
-
-        bookService.update(book);
-
-        return "Book updated, id = " + book.getId();
-    }
-
     @GetMapping("/delete/{id}")
-    @ResponseBody
     public String delete(@PathVariable Long id) {
         bookService.delete(id);
 
-        return "Book deleted, id = " + id;
+        return "redirect:/book/list";
     }
 
-    @GetMapping("/find/{id}")
-    @ResponseBody
-    public String find(@PathVariable Long id) {
-        Book book = bookService.findOne(id);
+    @GetMapping("/confirmDelete/{id}")
+    public String confirmDelete(Model model, @PathVariable Long id) {
+        model.addAttribute("book", bookService.findOne(id));
 
-        if (book != null) {
-            return book.toString();
-        }
-
-        return "Book not found";
+        return "book/confirmDelete";
     }
 
     @ModelAttribute(name = "publishers")
@@ -83,3 +79,37 @@ public class BookController {
         return publisherService.findAll();
     }
 }
+
+
+//    @GetMapping("/update/{id}")
+//    @ResponseBody
+//    public String update(@PathVariable Long id) {
+//        Book book = bookService.findOne(id);
+//
+//        book.setTitle("Thinking in Javaaaaaa!!!");
+//
+//        bookService.update(book);
+//
+//        return "Book updated, id = " + book.getId();
+//    }
+//
+//    @GetMapping("/delete/{id}")
+//    @ResponseBody
+//    public String delete(@PathVariable Long id) {
+//        bookService.delete(id);
+//
+//        return "Book deleted, id = " + id;
+//    }
+//
+//    @GetMapping("/find/{id}")
+//    @ResponseBody
+//    public String find(@PathVariable Long id) {
+//        Book book = bookService.findOne(id);
+//
+//        if (book != null) {
+//            return book.toString();
+//        }
+//
+//        return "Book not found";
+//    }
+

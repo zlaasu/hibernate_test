@@ -23,8 +23,9 @@
     <p><b>Rating: </b>${book.rating}</p>
     <p><b>Publisher: </b>${book.publisher.name}</p>
 
-    <p><b>Description</b></p>
-    <p>${book.description}</p>
+    <p><b>Actions</b></p>
+    <p><a href="/book/edit/${book.id}">EDIT</a></p>
+    <p><a href="/book/confirmDelete/${book.id}">DELETE</a></p>
 
     <hr>
 </c:forEach>

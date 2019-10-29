@@ -17,6 +17,9 @@
 <h1>Add book</h1>
 
 <form:form method="POST" modelAttribute="book">
+
+    <form:hidden path="id"/>
+
     <label>
         Title:
         <form:input path="title"/>
