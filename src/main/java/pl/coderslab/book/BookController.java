@@ -4,12 +4,14 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.author.Author;
 import pl.coderslab.author.AuthorService;
 import pl.coderslab.publisher.Publisher;
 import pl.coderslab.publisher.PublisherService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -49,7 +51,11 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute Book book) {
+    public String add(@Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
+            return "book/add";
+        }
+
         bookService.save(book);
 
         return "redirect:list";
@@ -89,36 +95,4 @@ public class BookController {
     }
 }
 
-
-//    @GetMapping("/update/{id}")
-//    @ResponseBody
-//    public String update(@PathVariable Long id) {
-//        Book book = bookService.findOne(id);
-//
-//        book.setTitle("Thinking in Javaaaaaa!!!");
-//
-//        bookService.update(book);
-//
-//        return "Book updated, id = " + book.getId();
-//    }
-//
-//    @GetMapping("/delete/{id}")
-//    @ResponseBody
-//    public String delete(@PathVariable Long id) {
-//        bookService.delete(id);
-//
-//        return "Book deleted, id = " + id;
-//    }
-//
-//    @GetMapping("/find/{id}")
-//    @ResponseBody
-//    public String find(@PathVariable Long id) {
-//        Book book = bookService.findOne(id);
-//
-//        if (book != null) {
-//            return book.toString();
-//        }
-//
-//        return "Book not found";
-//    }
 

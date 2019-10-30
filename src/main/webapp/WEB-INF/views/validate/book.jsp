@@ -15,6 +15,8 @@
 
 <h1>Book Erros</h1>
 
+<%--<c:if test="${test}"--%>
+
 <c:forEach items="${fieldErrors}" var="error">
     <p><b>Path:</b> ${error.path}, <b>message:</b> ${error.message} </p>
 </c:forEach>
