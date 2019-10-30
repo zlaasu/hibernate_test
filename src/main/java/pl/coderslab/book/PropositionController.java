@@ -1,6 +1,5 @@
 package pl.coderslab.book;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,15 +15,15 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/book")
-public class BookController {
+@RequestMapping("/proposition")
+public class PropositionController {
 
     private final BookService bookService;
     private final PublisherService publisherService;
     private final AuthorService authorService;
 
     @Autowired
-    public BookController(BookService bookService, PublisherService publisherService, AuthorService authorService) {
+    public PropositionController(BookService bookService, PublisherService publisherService, AuthorService authorService) {
         this.bookService = bookService;
         this.publisherService = publisherService;
         this.authorService = authorService;
@@ -45,24 +44,25 @@ public class BookController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Validated(BookValidatorGroup.class) Book book, BindingResult result, @PathVariable Long id) {
+    public String update(@Validated(PropositionValidatorGroup.class) Book book, BindingResult result,
+                         @PathVariable Long id) {
         if (result.hasErrors()) {
             return "book/add";
         }
 
-        book.setProposition(false);
+        book.setProposition(true);
         bookService.update(book);
 
-        return "redirect:/book/list";
+        return "redirect:/proposition/list";
     }
 
     @PostMapping("/add")
-    public String add(@Validated(BookValidatorGroup.class) Book book, BindingResult result) {
+    public String add(@Validated(PropositionValidatorGroup.class) Book book, BindingResult result) {
         if (result.hasErrors()) {
             return "book/add";
         }
 
-        book.setProposition(false);
+        book.setProposition(true);
         bookService.save(book);
 
         return "redirect:list";
@@ -70,7 +70,7 @@ public class BookController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Book> books = bookService.findAllPBooks();
+        List<Book> books = bookService.findAllPropositions();
 
         model.addAttribute("books", books);
 
@@ -81,7 +81,7 @@ public class BookController {
     public String delete(@PathVariable Long id) {
         bookService.delete(id);
 
-        return "redirect:/book/list";
+        return "redirect:/proposition/list";
     }
 
     @GetMapping("/confirmDelete/{id}")

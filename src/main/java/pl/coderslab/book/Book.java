@@ -2,6 +2,7 @@ package pl.coderslab.book;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import pl.coderslab.author.Author;
@@ -23,25 +24,28 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Size(min = 5)
+    private boolean proposition;
+
+    @NotNull(groups = {BookValidatorGroup.class, PropositionValidatorGroup.class})
+    @Size(min = 5, groups = {BookValidatorGroup.class, PropositionValidatorGroup.class})
     private String title;
 
-    @Range(min = 1, max = 10)
+    @Range(min = 1, max = 10, groups = BookValidatorGroup.class)
     private int rating;
 
-    @Min(2)
+    @Min(value = 2, groups = BookValidatorGroup.class)
     private int pages;
 
-    @Size(max = 600)
+    @Size(max = 600, groups = {BookValidatorGroup.class, PropositionValidatorGroup.class})
+    @NotBlank(groups = {BookValidatorGroup.class, PropositionValidatorGroup.class})
     private String description;
 
-    @NotNull
+    @NotNull(groups = BookValidatorGroup.class)
     @ManyToOne
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @NotEmpty
+    @NotEmpty(groups = BookValidatorGroup.class)
     @ManyToMany
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id"),

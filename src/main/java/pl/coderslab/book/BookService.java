@@ -47,4 +47,20 @@ public class BookService {
 
         return books;
     }
+
+    public List<Book> findAllPropositions() {
+        List<Book> books =  bookDao.findAllPropositions();
+
+        books.forEach(s -> Hibernate.initialize(s.getAuthors()));
+
+        return books;
+    }
+
+    public List<Book> findAllPBooks() {
+        List<Book> books =  bookDao.findAllBooks();
+
+        books.forEach(s -> Hibernate.initialize(s.getAuthors()));
+
+        return books;
+    }
 }
