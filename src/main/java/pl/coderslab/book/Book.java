@@ -36,8 +36,8 @@ public class Book {
     @Min(value = 2, groups = BookValidatorGroup.class)
     private int pages;
 
+    @NotBlank(groups = PropositionValidatorGroup.class)
     @Size(max = 600, groups = {BookValidatorGroup.class, PropositionValidatorGroup.class})
-    @NotBlank(groups = {BookValidatorGroup.class, PropositionValidatorGroup.class})
     private String description;
 
     @NotNull(groups = BookValidatorGroup.class)

@@ -74,7 +74,7 @@ public class PropositionController {
 
         model.addAttribute("books", books);
 
-        return "book/list";
+        return "book/propositionList";
     }
 
     @GetMapping("/delete/{id}")
@@ -82,13 +82,6 @@ public class PropositionController {
         bookService.delete(id);
 
         return "redirect:/proposition/list";
-    }
-
-    @GetMapping("/confirmDelete/{id}")
-    public String confirmDelete(Model model, @PathVariable Long id) {
-        model.addAttribute("book", bookService.findOne(id));
-
-        return "book/confirmDelete";
     }
 
     @ModelAttribute(name = "publishers")

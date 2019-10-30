@@ -74,7 +74,7 @@ public class BookController {
 
         model.addAttribute("books", books);
 
-        return "book/list";
+        return "book/bookList";
     }
 
     @GetMapping("/delete/{id}")
