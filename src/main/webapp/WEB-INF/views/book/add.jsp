@@ -13,31 +13,7 @@
     <title>Title</title>
     <style>
         .error {
-            background-color: red;
-            -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-            -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
-            animation-name: example;
-            animation-duration: 4s;
-        }
-
-        /* Safari 4.0 - 8.0 */
-        @-webkit-keyframes example {
-            from {
-                background-color: red;
-            }
-            to {
-                background-color: yellow;
-            }
-        }
-
-        /* Standard syntax */
-        @keyframes example {
-            from {
-                background-color: red;
-            }
-            to {
-                background-color: yellow;
-            }
+            color: red;
         }
     </style>
 </head>

@@ -5,8 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import pl.coderslab.author.Author;
 import pl.coderslab.book.Book;
+import pl.coderslab.publisher.Publisher;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -42,6 +43,50 @@ public class ValidationController {
 
         model.addAttribute("fieldErrors", fieldErrors);
 
-        return "validate/book";
+        return "validate/errors";
+    }
+
+    @GetMapping("/author")
+    public String validateAuthor(Model model) {
+        Author author = new Author();
+        author.setPesel("123");
+        author.setEmail("asd@as");
+        author.setYearOfBirth(2000);
+
+        Set<ConstraintViolation<Author>> errors = validator.validate(author);
+        List<FieldError> errorList = new ArrayList<>();
+
+        if (!errors.isEmpty()) {
+            for (ConstraintViolation<Author> error : errors) {
+                String path = error.getPropertyPath().toString();
+                String message = error.getMessage();
+                errorList.add(new FieldError(path, message));
+            }
+        }
+
+        model.addAttribute("fieldErrors", errorList);
+
+        return "validate/errors";
+    }
+
+    @GetMapping("/publisher")
+    public String validatePublisher(Model model) {
+        Publisher publisher = new Publisher();
+        publisher.setNip("1234567890");
+
+        Set<ConstraintViolation<Publisher>> errors = validator.validate(publisher);
+        List<FieldError> errorList = new ArrayList<>();
+
+        if (!errors.isEmpty()) {
+            for (ConstraintViolation<Publisher> error : errors) {
+                String path = error.getPropertyPath().toString();
+                String message = error.getMessage();
+                errorList.add(new FieldError(path, message));
+            }
+        }
+
+        model.addAttribute("fieldErrors", errorList);
+
+        return "validate/errors";
     }
 }

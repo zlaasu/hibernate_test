@@ -27,10 +27,12 @@ public class BookService {
     }
 
     public Book findOne(Long id) {
-        Book book = bookDao.findOne(id);
+        return bookDao.findOne(id);
+    }
 
+    public Book findBookWithAuthors(Long id) {
+        Book book = findOne(id);
         Hibernate.initialize(book.getAuthors());
-
         return book;
     }
 

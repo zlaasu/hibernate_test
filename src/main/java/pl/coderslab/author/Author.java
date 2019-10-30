@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.pl.PESEL;
 import pl.coderslab.book.Book;
+import pl.coderslab.validate.Age;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,8 +32,14 @@ public class Author {
     private List<Book> books;
 
     @PESEL
+    @NotBlank
     private String pesel;
 
     @Email
+    @NotBlank
     private String email;
+
+    @NotNull
+    @Age(minAge = 21)
+    private Integer yearOfBirth;
 }

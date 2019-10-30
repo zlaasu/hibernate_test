@@ -38,14 +38,16 @@ public class BookController {
 
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable Long id) {
-        model.addAttribute("book", bookService.findOne(id));
+        model.addAttribute("book", bookService.findBookWithAuthors(id));
 
         return "book/add";
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@ModelAttribute Book book, @PathVariable Long id) {
-        bookService.update(book);
+    public String update(@Valid Book book, BindingResult result, @PathVariable Long id) {
+        if (result.hasErrors()) {
+            return "book/add";
+        }
 
         return "redirect:/book/list";
     }

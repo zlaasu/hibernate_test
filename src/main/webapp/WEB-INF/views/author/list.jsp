@@ -18,10 +18,10 @@
     <p><b>First name: </b>${author.firstName}</p>
     <p><b>Last name: </b>${author.lastName}</p>
 
-    <p><b>Actions:</b></p>
-    <p><a href="/author/edit/${author.id}">EDIT</a></p>
-    <p><a href="/author/delete/${author.id}">DELETE</a></p>
-    <%--    <p><a href="#" onclick="confirmDelete(${book.id}, '${book.title}')">DELETE</a></p>--%>
+    <p><b>Actions:</b>
+        <a href="/author/edit/${author.id}">EDIT</a> |
+        <a href="/author/delete/${author.id}">DELETE</a>
+    </p>
 
     <hr>
 </c:forEach>

@@ -28,10 +28,10 @@
         </c:forEach>
     </p>
 
-    <p><b>Actions</b></p>
-    <p><a href="/book/edit/${book.id}">EDIT</a></p>
-    <%--    <p><a href="/book/confirmDelete/${book.id}">DELETE</a></p>--%>
-    <p><a href="#" onclick="confirmDelete(${book.id}, '${book.title}')">DELETE</a></p>
+    <p><b>Actions</b>
+        <a href="/book/edit/${book.id}">EDIT</a> |
+        <a href="#" onclick="confirmDelete(${book.id}, '${book.title}')">DELETE</a>
+    </p>
 
     <hr>
 </c:forEach>
