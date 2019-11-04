@@ -41,7 +41,7 @@ public class BookService {
     }
 
     public List<Book> findAll() {
-        List<Book> books =  bookRepository.findAll();
+        List<Book> books = bookRepository.findAll();
 
         books.forEach(s -> Hibernate.initialize(s.getAuthors()));
 
@@ -49,7 +49,7 @@ public class BookService {
     }
 
     public List<Book> findAllPropositions() {
-        List<Book> books =  bookRepository.findByPropositionTrue();
+        List<Book> books = bookRepository.findByPropositionTrue();
 
         books.forEach(s -> Hibernate.initialize(s.getAuthors()));
 
@@ -57,15 +57,15 @@ public class BookService {
     }
 
     public List<Book> getBookByTitle(String title) {
-        return bookRepository.findByTitle(title);
+        return bookRepository.findByTitleQuery(title);
     }
 
     public List<Book> getBooksByCategoryId(Long categoryId) {
-        return bookRepository.findByCategoryId(categoryId);
+        return bookRepository.findByCategoryIdQuery(categoryId);
     }
 
     public List<Book> findAllBooks() {
-        List<Book> books =  bookRepository.findByPropositionFalse();
+        List<Book> books = bookRepository.findByPropositionFalse();
 
         books.forEach(s -> Hibernate.initialize(s.getAuthors()));
 
@@ -82,6 +82,10 @@ public class BookService {
 
     public List<Book> findByRating(int id) {
         return bookRepository.findByRating(id);
+    }
+
+    public List<Book> findByRatingBetween(int start, int stop) {
+        return bookRepository.findByRatingQuery(start, stop);
     }
 
     public Book findFirstByCategoryIdOrderByTitle(Long id) {

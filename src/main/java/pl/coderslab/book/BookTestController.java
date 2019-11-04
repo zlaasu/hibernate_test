@@ -2,10 +2,7 @@ package pl.coderslab.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -54,6 +51,12 @@ public class BookTestController {
     @ResponseBody
     public String findByRating(@PathVariable int id) {
         return bookService.findByRating(id).toString();
+    }
+
+    @GetMapping("/findByRatingBetween/{start}/{stop}")
+    @ResponseBody
+    public String findByRatingBetween(@PathVariable int start, @PathVariable int stop) {
+        return bookService.findByRatingBetween(start, stop).toString();
     }
 
     @GetMapping("/findFirstByCategoryIdOrderByTitle/{id}")
