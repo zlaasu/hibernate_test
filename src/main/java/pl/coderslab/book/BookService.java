@@ -56,6 +56,14 @@ public class BookService {
         return books;
     }
 
+    public List<Book> getBookByTitle(String title) {
+        return bookRepository.findByTitle(title);
+    }
+
+    public List<Book> getBooksByCategoryId(Long categoryId) {
+        return bookRepository.findByCategoryId(categoryId);
+    }
+
     public List<Book> findAllPBooks() {
         List<Book> books =  bookRepository.findByPropositionFalse();
 

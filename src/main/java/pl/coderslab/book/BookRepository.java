@@ -9,4 +9,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findByPropositionTrue();
 
     List<Book> findByPropositionFalse();
+
+    List<Book> findByTitle(String title);
+
+    List<Book> findByCategoryId(Long id);
 }

@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import pl.coderslab.author.Author;
+import pl.coderslab.category.Category;
 import pl.coderslab.publisher.Publisher;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     private boolean proposition;
 
@@ -51,4 +56,16 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", proposition=" + proposition +
+                ", title='" + title + '\'' +
+                ", rating=" + rating +
+                ", pages=" + pages +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
