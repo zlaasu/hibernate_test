@@ -11,23 +11,23 @@ import java.util.List;
 @Transactional
 public class BookService {
 
-    private final BookDao bookDao;
+    private final BookRepository bookRepository;
 
     @Autowired
-    public BookService(BookDao bookDao) {
-        this.bookDao = bookDao;
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     public void save(Book book) {
-        bookDao.save(book);
+        bookRepository.save(book);
     }
 
     public void update(Book book) {
-        bookDao.update(book);
+        bookRepository.save(book);
     }
 
     public Book findOne(Long id) {
-        return bookDao.findOne(id);
+        return bookRepository.findById(id).orElse(null);
     }
 
     public Book findBookWithAuthors(Long id) {
@@ -37,11 +37,11 @@ public class BookService {
     }
 
     public void delete(Long id) {
-        bookDao.delete(id);
+        bookRepository.deleteById(id);
     }
 
     public List<Book> findAll() {
-        List<Book> books =  bookDao.findAll();
+        List<Book> books =  bookRepository.findAll();
 
         books.forEach(s -> Hibernate.initialize(s.getAuthors()));
 
@@ -49,7 +49,7 @@ public class BookService {
     }
 
     public List<Book> findAllPropositions() {
-        List<Book> books =  bookDao.findAllPropositions();
+        List<Book> books =  bookRepository.findByPropositionTrue();
 
         books.forEach(s -> Hibernate.initialize(s.getAuthors()));
 
@@ -57,7 +57,7 @@ public class BookService {
     }
 
     public List<Book> findAllPBooks() {
-        List<Book> books =  bookDao.findAllBooks();
+        List<Book> books =  bookRepository.findByPropositionFalse();
 
         books.forEach(s -> Hibernate.initialize(s.getAuthors()));
 
