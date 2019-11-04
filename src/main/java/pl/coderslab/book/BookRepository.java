@@ -36,7 +36,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Book findFirstByCategoryIdOrderByTitle(Long id);
 
-    @Query(value="SELECT b.* FROM books AS b WHERE publisher_id = ?1 ORDER BY b.title LIMIT 1"
+    @Query(value = "SELECT b.* FROM books AS b WHERE publisher_id = ?1 ORDER BY b.title LIMIT 1"
             , nativeQuery = true)
     Book findFirstByCategoryIdOrderByTitleQuery(Long id);
 }
