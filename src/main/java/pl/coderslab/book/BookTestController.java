@@ -64,4 +64,11 @@ public class BookTestController {
     public String findFirstByCategoryIdOrderByTitle(@PathVariable Long id) {
         return bookService.findFirstByCategoryIdOrderByTitle(id).toString();
     }
+
+    @GetMapping("/resetRating/{rating}")
+    @ResponseBody
+    public String resetRating(@PathVariable int rating) {
+        bookService.resetRating(rating);
+        return "OK";
+    }
 }

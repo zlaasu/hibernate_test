@@ -1,12 +1,13 @@
 package pl.coderslab.book;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, Long>, BookRepositoryCustom {
 
     List<Book> findByPropositionTrue();
 
@@ -39,4 +40,15 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "SELECT b.* FROM books AS b WHERE publisher_id = ?1 ORDER BY b.title LIMIT 1"
             , nativeQuery = true)
     Book findFirstByCategoryIdOrderByTitleQuery(Long id);
+
+    @Modifying
+    @Query("UPDATE Book b SET b.rating = :rating")
+    void resetRatingQuery(@Param("rating") int rating);
+
+    @Modifying
+    @Query(value = "DELETE FROM books_authors WHERE book_id = ?1", nativeQuery = true)
+    void deleteBookRelations(Long id);
+
+    @Modifying
+    void deleteByTitle(String title);
 }

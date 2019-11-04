@@ -91,4 +91,8 @@ public class BookService {
     public Book findFirstByCategoryIdOrderByTitle(Long id) {
         return bookRepository.findFirstByCategoryIdOrderByTitleQuery(id);
     }
+
+    public void resetRating(int id) {
+        bookRepository.resetRatingQuery(id);
+    }
 }

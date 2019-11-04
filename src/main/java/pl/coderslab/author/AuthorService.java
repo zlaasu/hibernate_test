@@ -48,7 +48,7 @@ public class AuthorService {
     }
 
     public List<Author> findByEmailStartsWith(String string) {
-        return authorRepository.findByEmailStartsWith(string);
+        return authorRepository.findByEmailStartsWithQuery(string);
     }
 
     public List<Author> findByPeselStartsWith(String string) {
