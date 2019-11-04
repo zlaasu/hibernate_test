@@ -1,5 +1,6 @@
 package pl.coderslab.author;
 
+import org.aspectj.lang.annotation.Around;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,37 +13,45 @@ import java.util.List;
 @Transactional
 public class AuthorService {
 
-    private final AuthorDao authorDao;
+    private final AuthorRepository authorRepository;
 
     @Autowired
-    public AuthorService(AuthorDao authorDao) {
-        this.authorDao = authorDao;
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
     }
 
     public void save(Author author) {
-        authorDao.save(author);
+        authorRepository.save(author);
     }
 
     public void update(Author author) {
-        authorDao.update(author);
+        authorRepository.save(author);
     }
 
     public Author findOne(Long id) {
-        return authorDao.findOne(id);
+        return authorRepository.findById(id).orElse(null);
     }
 
     public void delete(Long id) {
-        Author author = authorDao.findOne(id);
+        Author author = authorRepository.findById(id).orElse(null);
         List<Book> books = new ArrayList<>();
 
         author.setBooks(books);
-        authorDao.update(author);
+        authorRepository.save(author);
 
 //        authorDao.deleteAuthorRelations(id);
-        authorDao.delete(id);
+        authorRepository.deleteById(id);
     }
 
     public List<Author> findAll() {
-        return authorDao.findAll();
+        return authorRepository.findAll();
+    }
+
+    public List<Author> findByEmailStartsWith(String string) {
+        return authorRepository.findByEmailStartsWith(string);
+    }
+
+    public List<Author> findByPeselStartsWith(String string) {
+        return authorRepository.findByPeselStartsWith(string);
     }
 }

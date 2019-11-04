@@ -42,4 +42,16 @@ public class Author {
     @NotNull
     @Age(minAge = 21)
     private Integer yearOfBirth;
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", pesel='" + pesel + '\'' +
+                ", email='" + email + '\'' +
+                ", yearOfBirth=" + yearOfBirth +
+                '}';
+    }
 }

@@ -68,4 +68,16 @@ public class AuthorController {
 
         return "redirect:/author/list";
     }
+
+    @GetMapping("/findByEmailStartsWith/{prefix}")
+    @ResponseBody
+    public String findByEmailStartsWith(@PathVariable String prefix) {
+        return authorService.findByEmailStartsWith(prefix).toString();
+    }
+
+    @GetMapping("/findByPeselStartsWith/{prefix}")
+    @ResponseBody
+    public String findByPeselStartsWith(@PathVariable String prefix) {
+        return authorService.findByPeselStartsWith(prefix).toString();
+    }
 }
