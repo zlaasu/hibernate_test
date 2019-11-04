@@ -77,7 +77,7 @@ public class BookService {
     }
 
     public List<Book> findByPublisherId(Long id) {
-        return bookRepository.findByPublisherId(id);
+        return bookRepository.findByPublisherIdQuery(id);
     }
 
     public List<Book> findByRating(int id) {
@@ -89,6 +89,6 @@ public class BookService {
     }
 
     public Book findFirstByCategoryIdOrderByTitle(Long id) {
-        return bookRepository.findFirstByCategoryIdOrderByTitle(id);
+        return bookRepository.findFirstByCategoryIdOrderByTitleQuery(id);
     }
 }
