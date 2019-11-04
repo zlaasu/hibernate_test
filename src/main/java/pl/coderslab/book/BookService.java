@@ -64,11 +64,27 @@ public class BookService {
         return bookRepository.findByCategoryId(categoryId);
     }
 
-    public List<Book> findAllPBooks() {
+    public List<Book> findAllBooks() {
         List<Book> books =  bookRepository.findByPropositionFalse();
 
         books.forEach(s -> Hibernate.initialize(s.getAuthors()));
 
         return books;
+    }
+
+    public List<Book> findByAuthorsId(Long id) {
+        return bookRepository.findByAuthorsId(id);
+    }
+
+    public List<Book> findByPublisherId(Long id) {
+        return bookRepository.findByPublisherId(id);
+    }
+
+    public List<Book> findByRating(int id) {
+        return bookRepository.findByRating(id);
+    }
+
+    public Book findFirstByCategoryIdOrderByTitle(Long id) {
+        return bookRepository.findFirstByCategoryIdOrderByTitle(id);
     }
 }

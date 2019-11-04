@@ -29,8 +29,6 @@ public class BookTestController {
         return books.toString();
     }
 
-
-
     @GetMapping("/category/{categoryId}")
     @ResponseBody
     public String getBooksByCategory(@PathVariable Long categoryId) {
@@ -38,5 +36,29 @@ public class BookTestController {
 
 //        return books.stream().map(s -> s.toString()).collect(Collectors.joining(" | "));
         return books.toString();
+    }
+
+    @GetMapping("/findByAuthorsId/{authorId}")
+    @ResponseBody
+    public String findByAuthorsId(@PathVariable Long authorId) {
+        return bookService.findByAuthorsId(authorId).toString();
+    }
+
+    @GetMapping("/findByPublisherId/{id}")
+    @ResponseBody
+    public String findByPublisherId(@PathVariable Long id) {
+        return bookService.findByPublisherId(id).toString();
+    }
+
+    @GetMapping("/findByRating/{id}")
+    @ResponseBody
+    public String findByRating(@PathVariable int id) {
+        return bookService.findByRating(id).toString();
+    }
+
+    @GetMapping("/findFirstByCategoryIdOrderByTitle/{id}")
+    @ResponseBody
+    public String findFirstByCategoryIdOrderByTitle(@PathVariable Long id) {
+        return bookService.findFirstByCategoryIdOrderByTitle(id).toString();
     }
 }

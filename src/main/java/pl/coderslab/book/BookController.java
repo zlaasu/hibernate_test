@@ -70,7 +70,7 @@ public class BookController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Book> books = bookService.findAllPBooks();
+        List<Book> books = bookService.findAllBooks();
 
         model.addAttribute("books", books);
 
